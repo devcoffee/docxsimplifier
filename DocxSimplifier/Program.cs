@@ -28,7 +28,10 @@ using System.IO;
 namespace DocxSimplifier
 {
     /*
-    * @author Pedro Pozzi Ferreira @pozzisan
+    * @author Pedro Pozzi Ferreira @PozziSan
+    * 
+    * This is the main class of the application. His function is to get 
+    * the commmand line arguments and manage the functions of Util.cs
     */
     class Program
     {
@@ -41,6 +44,7 @@ namespace DocxSimplifier
             string docLocation;
             bool removeStyles = false;
 
+            //Check if there is Command Line Arguments, if not, Print on terminal a manual of the application usage.
             if (args.Length == 0)
             {
                 Console.WriteLine("O nome ou localização do Arquivo não foi informado! Uso correto: DocxSimplifier.exe docLocation\\docName.docx. " +
@@ -49,10 +53,12 @@ namespace DocxSimplifier
             }
             else if (args.Length > 1)
             {
+                //Check if the --removeStyles flag was given
                 if (args[1].Equals("--removeStyles"))
                     removeStyles = true;
             }
 
+            //Set Absolute path to the File Location
             docName = args[0];
             location = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
             docLocation = File.Exists(docName) ? docName : string.Format("{0}\\{1}", location, docName);
@@ -61,11 +67,14 @@ namespace DocxSimplifier
 
             try
             {
+                //Calls the function SimplifyMarkup. Notice that the Boolean removeStyles is passed as an argument.
+                //If there's no error on function, it prints on console a success message
                 Util.SimplifyMarkup(docLocation, xNamespace, removeStyles);
                 Console.WriteLine("Sucesso ao Simplificar o Arquivo: {0}", docName);
             }
             catch (Exception e)
             {
+                //If an error happens, it's displayed on console
                 Console.WriteLine(e.ToString());
             }
 
