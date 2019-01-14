@@ -63,6 +63,11 @@ namespace DocxSimplifier
             location = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
             docLocation = File.Exists(docName) ? docName : string.Format("{0}\\{1}", location, docName);
 
+            if (!File.Exists(docLocation)){
+                Console.WriteLine("Não foi possível localizar o arquivo {0}", docLocation);
+                Environment.Exit(1);
+            }
+
             Console.WriteLine("Simplificando documento: " + docName);
 
             try
