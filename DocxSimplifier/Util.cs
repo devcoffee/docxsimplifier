@@ -92,9 +92,9 @@ namespace DocxSimplifier
         /// <param name="simplerXml"></param>
         private static void ReWriteDocument(string docLocation, XElement simplerXml)
         {
-            File.Delete(docLocation);
+            string newDocLocation = docLocation.Split('.')[0] + " Simplificado.docx";
 
-            using (FileStream fileStream = new FileStream(docLocation, FileMode.Create, FileAccess.Write))
+            using (FileStream fileStream = new FileStream(newDocLocation, FileMode.Create, FileAccess.Write))
             {
                 XWPFDocument newWordDoc = new XWPFDocument();
 
